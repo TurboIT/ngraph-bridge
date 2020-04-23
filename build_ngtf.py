@@ -384,6 +384,7 @@ def main():
 
     if arguments.debug_build:
         ngraph_cmake_flags.extend(["-DCMAKE_BUILD_TYPE=Debug"])
+        ngraph_cmake_flags.extend(["-DNGRAPH_DEBUG_ENABLE=ON"])
 
     if (arguments.distributed_build == "OMPI"):
         ngraph_cmake_flags.extend(["-DNGRAPH_DISTRIBUTED_ENABLE=OMPI"])
@@ -427,6 +428,7 @@ def main():
 
     if (arguments.debug_build):
         ngraph_tf_cmake_flags.extend(["-DCMAKE_BUILD_TYPE=Debug"])
+        ngraph_tf_cmake_flags.extend(["-DNGRAPH_DEBUG_ENABLE=ON"])
 
     if not arguments.use_prebuilt_tensorflow:
         if arguments.use_tensorflow_from_location:
