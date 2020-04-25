@@ -153,7 +153,11 @@ Status ValuesFromConstNode(const NodeDef& node,
       auto dt = node.attr().at("dtype").type();
       int64 val_size = 0;
       auto val_i = (T)0;  // cast
-      switch (dt) {
+
+      if (node.name() == "stft/frame/zeros_like") {
+        val_size = 1;
+      } else {
+        switch (dt) {
         // TODO(amprocte/NGRAPH-2502): there are more element types to support
         // here
         case DT_INT32:
@@ -185,6 +189,7 @@ Status ValuesFromConstNode(const NodeDef& node,
           return errors::Unimplemented("Encountered unknown element type ",
                                        DataType_Name(dt),
                                        " on an empty tensor");
+        }
       }
       if (val_size == 0) {
         return errors::InvalidArgument("Empty values vector");
